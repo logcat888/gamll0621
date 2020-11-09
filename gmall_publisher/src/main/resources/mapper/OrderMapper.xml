@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.atguigu.gmall.gmall_publisher.mapper.GmvMapper">
+<mapper namespace="com.atguigu.write.gmall.gmall_publisher.mapper.GmvMapper">
 
     <select id="selectOrderAmountTotal" resultType="java.lang.Double">
         select sum(total_amount) sum_amount from gmall2020_order_info where create_date=#{date}
