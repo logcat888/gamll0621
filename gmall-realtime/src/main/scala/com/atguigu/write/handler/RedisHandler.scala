@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat
 import java.util
 import java.util.Date
 
-import com.atguigu.bean.StartUpLog
 import com.atguigu.write.bean.StartUpLog
 import com.atguigu.write.utils.RedisUtil
 import org.apache.spark.SparkContext

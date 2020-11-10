@@ -6,7 +6,9 @@ package com.atguigu.write.constants;
  */
 public class GmallConstants {
 
+    //启动日志
     public static final String KAFKA_TOPIC_STARTUP="GMALL_STARTUP";
+    //事件日志
     public static final String KAFKA_TOPIC_EVENT="GMALL_EVENT";
 
     public static final String KAFKA_TOPIC_NEW_ORDER="GMALL_NEW_ORDER";
@@ -18,5 +20,9 @@ public class GmallConstants {
     public static final String ES_INDEX_SALE_DETAIL="gmall2020_sale_detail";
     //订单表日志主题
     public static final String GMALL_ORDER_INFO = "TOPIC_ORDER_INFO";
+
+    //预警日志ES Index前缀
+    public static final String ES_ALERT_INDEX_PRE = "gmall_coupon_alert";
+
 
 }

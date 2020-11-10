@@ -1,9 +1,6 @@
 package com.atguigu.write.app
 
 import com.alibaba.fastjson.JSON
-import com.atguigu.bean.{OrderInfo, StartUpLog}
-import com.atguigu.constants.GmallConstants
-import com.atguigu.utils.MyKafkaUtil
 import com.atguigu.write.bean.OrderInfo
 import com.atguigu.write.constants.GmallConstants
 import com.atguigu.write.utils.MyKafkaUtil

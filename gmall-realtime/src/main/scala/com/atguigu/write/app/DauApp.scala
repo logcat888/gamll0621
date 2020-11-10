@@ -4,15 +4,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 import com.alibaba.fastjson.JSON
-import com.atguigu.bean.StartUpLog
-import com.atguigu.constants.GmallConstants
-import com.atguigu.handler.RedisHandler
-import com.atguigu.utils.MyKafkaUtil
 import com.atguigu.write.bean.StartUpLog
 import com.atguigu.write.constants.GmallConstants
 import com.atguigu.write.handler.RedisHandler
 import com.atguigu.write.utils.MyKafkaUtil
-import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.HBaseConfiguration
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.spark.SparkConf
