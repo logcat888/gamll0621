@@ -1,5 +1,6 @@
 package com.atguigu.write.gmall.gmall_publisher.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +15,6 @@ public interface PublisherService {
     public Double getOrderAmountTotal(String date);
 
     public Map getOrderAmountHourMap(String date);
+
+    public String getSaleDetail(String date, int startpage, int size, String keyword) throws IOException;
 }

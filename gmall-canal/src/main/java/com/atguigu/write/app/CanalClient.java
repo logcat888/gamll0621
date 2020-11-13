@@ -12,6 +12,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -81,20 +82,41 @@ public class CanalClient {
     private static void handler(String tableName, CanalEntry.EventType eventType, List<CanalEntry.RowData> rowDatasList) {
         //1.对于订单表而言,只需要新增数据
         if (CanalEntry.EventType.INSERT.equals(eventType) && "order_info".equals(tableName)){
-            //2.将数据发送到kafka集群
-            //3.遍历多行数据
-            for (CanalEntry.RowData rowData : rowDatasList) {
-                // 4.创建Json对象，用于存放多个列的数据
-                JSONObject jsonObject = new JSONObject();
-                for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
-                    jsonObject.put(column.getName(),column.getValue());
-                }
-                //5.将数据转换为Json字符串
-                String s = jsonObject.toString();
-                System.out.println(s);
-                //6.将数据发送到kafka
-                MyKafkaSender.send(GmallConstants.GMALL_ORDER_INFO, s);
+            //6.将数据发送到kafka
+            sendToKafka(GmallConstants.GMALL_ORDER_INFO, rowDatasList);
+        }else if ("user_info".equals(tableName) && (CanalEntry.EventType.INSERT.equals(eventType)
+                || CanalEntry.EventType.UPDATE.equals(eventType))){
+            //2.对于用户表而言,需要新增及变化的数据
+            //6.将数据发送到kafka
+            sendToKafka(GmallConstants.GMALL_USER_INFO, rowDatasList);
+
+        }else if ("order_detail".equals(tableName) && CanalEntry.EventType.INSERT.equals(eventType) ){
+            //3.对于订单详情表而言,需要新增的数据
+            //6.将数据发送到kafka
+            sendToKafka(GmallConstants.GMALL_ORDER_DETAIL, rowDatasList);
+        }
+    }
+
+    private static void sendToKafka(String topic, List<CanalEntry.RowData> rowDatasList){
+        for (CanalEntry.RowData rowData : rowDatasList) {
+            // 4.创建Json对象，用于存放多个列的数据
+            JSONObject jsonObject = new JSONObject();
+            for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
+                jsonObject.put(column.getName(),column.getValue());
             }
+            //5.将数据转换为Json字符串
+            String s = jsonObject.toString();
+
+            //模拟网络震荡，制造数据延迟,正常代码不需要
+//            try {
+//                Thread.sleep(new Random().nextInt(5)*1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
+
+            //6.将数据发送到kafka
+            MyKafkaSender.send(topic, s);
         }
     }
 }
